@@ -53,7 +53,8 @@ return array(
 		/**
 		 * Whether to send as html, set to null for autodetection.
 		 */
-		'is_html' => null,
+		// 'is_html' => null,
+		'is_html' => true,
 
 		/**
 		 * Email charset
@@ -69,12 +70,14 @@ return array(
 		/**
 		 * Ecoding (8bit, base64 or quoted-printable)
 		 */
-		'encoding' => '8bit',
+		// 'encoding' => '8bit',
+		'encoding' => 'base64',
 
 		/**
 		 * Email priority
 		 */
-		'priority' => \Email::P_NORMAL,
+		// 'priority' => \Email::P_NORMAL,
+		'priority' => \Email::P_HIGHEST,
 
 		/**
 		 * Default sender details
@@ -118,11 +121,11 @@ return array(
 		 * SMTP settings
 		 */
 		'smtp' => array(
-			'host'     => '',
-			'port'     => 25,
-			'username' => '',
-			'password' => '',
-			'timeout'  => 5,
+			'host'     => 'smtp.qq.com',
+			'port'     => 465,
+			'username' => '3074053670@qq.com',
+			'password' => 'junxmcaubfjedheh',
+			'timeout'  => 10,
 			'starttls' => false,
 		),
 
