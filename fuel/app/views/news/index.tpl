@@ -5,7 +5,7 @@
     <div class="row">
         <form action="/news/public/news/index" method="get" class="form-inline pull-right">
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="输入文章标题搜索" name="kw" value="{if !empty($smarty.get.kw)}{$smarty.get.kw}{/if}" />
+                <input type="text" class="form-control" placeholder="输入文章标题搜索" name="kw" value="{if !empty($smarty.get.kw)}{$smarty.get.kw}{/if}" required="required" />
             </div>
             <button type="submit" class="btn btn-default">搜索</button>
         </form>
