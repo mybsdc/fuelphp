@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.31, created on 2017-09-05 18:00:59
+/* Smarty version 3.1.31, created on 2017-09-06 09:32:10
   from "D:\wamp64\www\news\fuel\app\views\news\index.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.31',
-  'unifunc' => 'content_59ae75db52f7e5_13537868',
+  'unifunc' => 'content_59af501ac0e2d2_82755139',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'bafebcb76928c6c128ba01ccdb07a71f11fee2c6' => 
     array (
       0 => 'D:\\wamp64\\www\\news\\fuel\\app\\views\\news\\index.tpl',
-      1 => 1504605657,
+      1 => 1504661145,
       2 => 'file',
     ),
   ),
@@ -20,26 +20,26 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_59ae75db52f7e5_13537868 (Smarty_Internal_Template $_smarty_tpl) {
+function content_59af501ac0e2d2_82755139 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1344059ae75db41c358_35761565', "title");
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_104959af50196ccaf8_68997019', "title");
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_274559ae75db4291c6_79009850', "main");
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_329459af50197b4c11_25383075', "main");
 $_smarty_tpl->inheritance->endChild($_smarty_tpl, 'common/base.tpl');
 }
 /* {block "title"} */
-class Block_1344059ae75db41c358_35761565 extends Smarty_Internal_Block
+class Block_104959af50196ccaf8_68997019 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'title' => 
   array (
-    0 => 'Block_1344059ae75db41c358_35761565',
+    0 => 'Block_104959af50196ccaf8_68997019',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -49,12 +49,12 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 }
 /* {/block "title"} */
 /* {block "main"} */
-class Block_274559ae75db4291c6_79009850 extends Smarty_Internal_Block
+class Block_329459af50197b4c11_25383075 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'main' => 
   array (
-    0 => 'Block_274559ae75db4291c6_79009850',
+    0 => 'Block_329459af50197b4c11_25383075',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -67,7 +67,7 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="输入文章标题搜索" name="kw" value="<?php if (!empty($_GET['kw'])) {
 echo $_GET['kw'];
-}?>" />
+}?>" required="required" />
             </div>
             <button type="submit" class="btn btn-default">搜索</button>
         </form>
