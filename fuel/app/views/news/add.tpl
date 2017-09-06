@@ -19,6 +19,7 @@
         </div>
         {*图片上传*}
 
+        <div id="img" class="fallback">
         <div class="fallback">
             <input name="file" type="file" multiple/>
         </div>
@@ -49,6 +50,11 @@
         var ue = UE.getEditor('container');
     </script>
     <script>
+
+        $("#img").dropzone({ url: "" });
+
+
+
         Dropzone.options.myAwesomeDropzone = false;
         Dropzone.options.myDropzone = {
             init: function() {

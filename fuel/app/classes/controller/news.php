@@ -171,4 +171,35 @@ class Controller_News extends Controller
         }
         return View_Smarty::forge('news/test');
     }
+
+    public function action_testEmail(){
+        $email = Email\Email::forge();
+        // Set the from address
+        $email->from('15023154369@163.com', 'My Name');
+        // Set the to address
+        $email->to('15023154369@163.com', 'xxxxxx');
+        // Set a subject
+        $email->subject('This is the subject');
+        // Set multiple to addresses
+        $email->to(array(
+            '15023154369@163.com',
+//            'another@mail.com' => 'With a Name',
+        ));
+        // And set the body.
+        $email->body('This is my message');
+        try
+        {
+            $email->send();
+        }
+        catch(\EmailValidationFailedException $e)
+        {
+            // The validation failed
+            echo "第一个错";
+        }
+        catch(\EmailSendingFailedException $e)
+        {
+            // The driver could not send the email
+            var_dump($e);
+        }
+    }
 }
