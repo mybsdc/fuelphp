@@ -1,7 +1,7 @@
 {extends file='common/base.tpl'}
 {block name="title"}添加新闻{/block}
 {block name="style"}
-    {Asset::css('dropzone.css')}
+    {Asset::css('dropzone.min.css')}
 {/block}
 {block name="main"}
     <div id="tips"></div>
@@ -20,7 +20,7 @@
         {*图片上传*}
 
         <div class="fallback">
-            <input name="file" type="file" multiple />
+            <input name="file" type="file" multiple/>
         </div>
 
 
@@ -33,10 +33,9 @@
             </select>
         </div>
 
-        <a class="btn btn-default" href="index?page={if isset($smarty.get.page)}{$smarty.get.page}{else}1{/if}&kw={if isset($smarty.get.kw)}{$smarty.get.kw}{/if}">返回</a>
+        <a class="btn btn-default"
+           href="index?page={if isset($smarty.get.page)}{$smarty.get.page}{else}1{/if}&kw={if isset($smarty.get.kw)}{$smarty.get.kw}{/if}">返回</a>
         <button class="btn btn-success pull-right" id="addPost">提交</button>
-
-
 
 
     </form>
@@ -45,9 +44,7 @@
     {Asset::js('news/ueditor/ueditor.config.js')}
     {Asset::js('news/ueditor/ueditor.all.js')}
     {*多图片上传*}
-    {Asset::js('news/dropzone.js')}
-
-
+    {Asset::js('news/dropzone.min.js')}
     <script type="text/javascript">
         var ue = UE.getEditor('container');
     </script>
