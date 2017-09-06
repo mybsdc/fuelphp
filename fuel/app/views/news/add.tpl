@@ -26,14 +26,14 @@
             </select>
         </div>
     </form>
-    <div id="dropzone">
-        <form action="/upload" class="dropzone needsclick dz-clickable" id="demo-upload">
-            <div class="dz-message needsclick">
-                <h4>图片上传</h4>
-                <span class="note needsclick">拖拽图片到此处</span>
-            </div>
-        </form>
-    </div>
+    <form action="test" class="dropzone" enctype="multipart/form-data" method="post">
+        <div class="fallback">
+            <input name="file" type="file" multiple />
+        </div>
+        {*<input type="file" multiple name="fuck" />*}
+        {*<button type="submit" class="btn btn-warning">测试图片上传</button>*}
+        <input type="submit" value="传图" />
+    </form>
     <a class="btn btn-default" href="index?page={if isset($smarty.get.page)}{$smarty.get.page}{else}1{/if}&kw={if isset($smarty.get.kw)}{$smarty.get.kw}{/if}">返回</a>
     <button class="btn btn-success pull-right" id="addPost">提交</button>
 {/block}
