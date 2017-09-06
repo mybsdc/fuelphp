@@ -167,9 +167,11 @@ class Controller_News extends Controller
     public function action_test()
     {
         if (Input::method() === 'POST') {
-            print_r(Input::file());
+
         }
-        return View_Smarty::forge('news/test');
+//        print_r(Input::file());exit;
+        print_r($_FILES);exit;
+//        return View_Smarty::forge('news/test');
     }
 
     public function action_testEmail(){
