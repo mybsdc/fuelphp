@@ -48,4 +48,20 @@
     <script type="text/javascript">
         var ue = UE.getEditor('container');
     </script>
+    <script>
+        Dropzone.options.myAwesomeDropzone = false;
+        Dropzone.options.myDropzone = {
+            init: function() {
+                this.on("success", function(file, serverResponse) {
+                    // Called after the file successfully uploaded.
+
+                    // If the image is already a thumbnail:
+                    this.emit('thumbnail', file, serverResponse.imageUrl);
+
+                    // If it needs resizing:
+                    this.createThumbnailFromUrl(file, serverResponse.imageUrl);
+                });
+            }
+        };
+    </script>
 {/block}
