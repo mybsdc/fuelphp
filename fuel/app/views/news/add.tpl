@@ -5,7 +5,7 @@
 {/block}
 {block name="main"}
     <div id="tips"></div>
-    <form action="add" method="post" class="dropzone" id="addForm">
+    <form action="add" method="post" id="addForm">
         <div class="form-group">
             <label for="exampleInputEmail1">标题</label>
             <input type="text" class="form-control" id="exampleInputEmail1" placeholder="请输入标题" name="title"/>
@@ -17,13 +17,6 @@
             <script id="container" name="content" type="text/plain" placeholder="请输入内容">
             </script>
         </div>
-        {*图片上传*}
-
-        <div class="fallback">
-            <input name="file" type="file" multiple/>
-        </div>
-
-
         <div class="form-group">
             <span>所属分类</span>
             <select>
@@ -32,27 +25,31 @@
                 <option value="3">科技</option>
             </select>
         </div>
-
-        <a class="btn btn-default"
-           href="index?page={if isset($smarty.get.page)}{$smarty.get.page}{else}1{/if}&kw={if isset($smarty.get.kw)}{$smarty.get.kw}{/if}">返回</a>
-        <button class="btn btn-success pull-right" id="addPost">提交</button>
-
-
     </form>
+    <div id="dropzone">
+        <form action="/upload" class="dropzone needsclick dz-clickable" id="demo-upload">
+            <div class="dz-message needsclick">
+                <h4>图片上传</h4>
+                <span class="note needsclick">拖拽图片到此处</span>
+            </div>
+        </form>
+    </div>
+    <a class="btn btn-default" href="index?page={if isset($smarty.get.page)}{$smarty.get.page}{else}1{/if}&kw={if isset($smarty.get.kw)}{$smarty.get.kw}{/if}">返回</a>
+    <button class="btn btn-success pull-right" id="addPost">提交</button>
 {/block}
 {block name="js"}
     {Asset::js('news/ueditor/ueditor.config.js')}
     {Asset::js('news/ueditor/ueditor.all.js')}
-    {*多图片上传*}
+    {*图片上传插件*}
     {Asset::js('news/dropzone.min.js')}
     <script type="text/javascript">
         var ue = UE.getEditor('container');
     </script>
     <script>
-        Dropzone.options.myAwesomeDropzone = false;
+        /*Dropzone.options.myAwesomeDropzone = false;
         Dropzone.options.myDropzone = {
-            init: function() {
-                this.on("success", function(file, serverResponse) {
+            init: function () {
+                this.on("success", function (file, serverResponse) {
                     // Called after the file successfully uploaded.
                     // If the image is already a thumbnail:
                     this.emit('thumbnail', file, serverResponse.imageUrl);
@@ -60,6 +57,6 @@
                     this.createThumbnailFromUrl(file, serverResponse.imageUrl);
                 });
             }
-        };
+        };*/
     </script>
 {/block}
