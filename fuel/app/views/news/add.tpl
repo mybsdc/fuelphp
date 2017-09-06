@@ -54,10 +54,8 @@
             init: function() {
                 this.on("success", function(file, serverResponse) {
                     // Called after the file successfully uploaded.
-
                     // If the image is already a thumbnail:
                     this.emit('thumbnail', file, serverResponse.imageUrl);
-
                     // If it needs resizing:
                     this.createThumbnailFromUrl(file, serverResponse.imageUrl);
                 });
