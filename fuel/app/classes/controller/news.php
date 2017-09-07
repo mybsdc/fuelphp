@@ -167,48 +167,36 @@ class Controller_News extends Controller
 
     public function action_sendEmail()
     {
+        $id = (int)Input::post('id');
+        $data = Article::get_news_by_id($id);
+        $html['htmlData'] = $data;
+        $toEmail = !empty(Input::post('toEmail')) ? Input::post('toEmail') : 'mybsdc@qq.com';
 
+        $email = Email::forge();
+        $email->from('3074053670@qq.com', '初音');
+        $email->to($toEmail, '罗叔叔');
+        $email->subject($data['title']);
+        // $email->body($data['content']);
+        $email->html_body(View_Smarty::forge('email/template', $html));
+        $email->attach(DOCROOT . 'assets/img/test.jpg', true);
+        $email->alt_body('你的邮箱太过古老，不支持html格式邮件<del>，请考虑切腹</del>');
+
+        if ($email->send()) {
+            $result = [
+                'code' => 200,
+                'msg' => '成功向' . $toEmail . '发送了一封邮件'
+            ];
+        } else {
+            $result = [
+                'code' => -1,
+                'msg' => '发送失败'
+            ];
+        }
+        return json_encode($result);
     }
 
     public function action_test()
     {
-        $email = Email::forge();
-        $email->from('3074053670@qq.com', '初音');
-        $email->to('mybsdc@qq.com', '罗叔叔');
-        $email->subject('致亲爱的罗叔叔');
-        $email->body('这只是一封测试邮件而已。');
-        $email->alt_body('这是什么');
-        $email->send();
-    }
 
-    public function action_testEmail(){
-        $email = Email\Email::forge();
-        // Set the from address
-        $email->from('15023154369@163.com', 'My Name');
-        // Set the to address
-        $email->to('15023154369@163.com', 'xxxxxx');
-        // Set a subject
-        $email->subject('This is the subject');
-        // Set multiple to addresses
-        $email->to(array(
-            '15023154369@163.com',
-//            'another@mail.com' => 'With a Name',
-        ));
-        // And set the body.
-        $email->body('This is my message');
-        try
-        {
-            $email->send();
-        }
-        catch(\EmailValidationFailedException $e)
-        {
-            // The validation failed
-            echo "第一个错";
-        }
-        catch(\EmailSendingFailedException $e)
-        {
-            // The driver could not send the email
-            var_dump($e);
-        }
     }
 }
