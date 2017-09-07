@@ -7,6 +7,7 @@
     {*end 标题*}
     {*公共css*}
     {Asset::css('bootstrap.css')}
+    {Asset::css('public.css')}
     {*end 公共css*}
     {*当前页单独css*}
     {block name="style"}{/block}
