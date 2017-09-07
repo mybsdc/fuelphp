@@ -78,11 +78,17 @@ function StandardPost (url, args) {
 
 // 邮件发送
 function sendEmail(id) {
+	var nowBtn = $('.' + id);
+    nowBtn.addClass('disabled');
+    nowBtn.html('正在发送...');
 	var toEmail = $('#' + id).val();
+
     $.post('sendEmail', {id: id, toEmail: toEmail}, function(data){
         var dataObj = JSON.parse(data);
         
 		$('#e-res').html(dataObj.msg);
 		$('#tips-w').modal();
+        nowBtn.removeClass('disabled');
+        nowBtn.html('邮件发送');
 	});
 }

@@ -35,7 +35,7 @@
                         <a class="btn btn-danger" href="/news/public/news/delete?id={$v['id']}">删除</a>
                         <a class="btn btn-info" href="/news/public/news/edit?id={$v['id']}&page={if isset($smarty.get.page)}{$smarty.get.page}{else}1{/if}&kw={if isset($smarty.get.kw)}{$smarty.get.kw}{/if}">编辑</a>
                         <input type="text" placeholder="收件地址" class="form-control toEmail" style="width: 46%; display: inline-block;" id="{$v['id']}"/>
-                        <button class="btn btn-success" onclick="sendEmail({$v['id']});">邮件发送</button>
+                        <button class="btn btn-success {$v['id']}" onclick="sendEmail({$v['id']});">邮件发送</button>
                     </td>
                 </tr>
             {/foreach}
