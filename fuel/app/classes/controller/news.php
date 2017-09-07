@@ -167,32 +167,54 @@ class Controller_News extends Controller
 
     public function action_sendEmail()
     {
-        $id = (int)Input::post('id');
-        $data = Article::get_news_by_id($id);
-        $html['htmlData'] = $data;
-        $toEmail = !empty(Input::post('toEmail')) ? Input::post('toEmail') : 'mybsdc@qq.com';
+        if (Input::post()) {
+            $id = (int)Input::post('id');
+            $data = Article::get_news_by_id($id);
+            $html['htmlData'] = $data;
+            $toEmail = !empty(Input::post('toEmail')) ? Input::post('toEmail') : 'mybsdc@qq.com';
 
-        $email = Email::forge();
-        $email->from('3074053670@qq.com', '初音');
-        $email->to($toEmail, '罗叔叔');
-        $email->subject($data['title']);
-        // $email->body($data['content']);
-        $email->html_body(View_Smarty::forge('email/template', $html));
-        $email->attach(DOCROOT . 'assets/img/test.jpg', true);
-        $email->alt_body('你的邮箱太过古老，不支持html格式邮件<del>，请考虑切腹</del>');
+            $email = Email::forge();
+            $email->from('3074053670@qq.com', '初音');
+            $email->to($toEmail, '罗叔叔');
+            $email->subject($data['title']);
+            // $email->body($data['content']);
 
-        if ($email->send()) {
-            $result = [
-                'code' => 200,
-                'msg' => '成功向' . $toEmail . '发送了一封邮件'
-            ];
+            try { // 异常捕获
+                $email->html_body(View_Smarty::forge('email/template', $html));
+            } catch (\AttachmentNotFoundException $e) {
+                $result = [
+                    'code' => -1,
+                    'msg' => '发送失败，存在文件缺失情况，估计是百度编辑器的锅'
+                ];
+                return json_encode($result);
+            }
+            $email->attach(DOCROOT . 'assets/img/test.jpg', true);
+            $email->alt_body('你的邮箱太过古老，不支持html格式邮件<del>，请考虑切腹</del>');
+
+            try {
+                $email->send();
+                $result = [
+                    'code' => 200,
+                    'msg' => '成功向' . $toEmail . '发送了一封邮件'
+                ];
+            } catch(\EmailValidationFailedException $e) {
+                // The validation failed
+                $result = [
+                    'code' => -1,
+                    'msg' => '验证不通过，请检查配置'
+                ];
+            } catch(\EmailSendingFailedException $e) {
+                // The driver could not send the email
+                $result = [
+                    'code' => -1,
+                    'msg' => '邮件驱动存在问题'
+                ];
+            }
+
+            return json_encode($result);
         } else {
-            $result = [
-                'code' => -1,
-                'msg' => '发送失败'
-            ];
+            return '403';
         }
-        return json_encode($result);
     }
 
     public function action_test()
