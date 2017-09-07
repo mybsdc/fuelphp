@@ -177,20 +177,25 @@ class Controller_News extends Controller
     public function action_testEmail(){
         $email = Email\Email::forge();
         // Set the from address
-        $email->from('15023154369@163.com', 'My Name');
+        $email->from('15023154369@163.com', '测试163邮箱');
         // Set the to address
-        $email->to('15023154369@163.com', 'xxxxxx');
+        $email->to('785556851@qq.com', '测试悄悄地');
         // Set a subject
         $email->subject('This is the subject');
         // Set multiple to addresses
-        $email->to(array(
-            '15023154369@163.com',
-//            'another@mail.com' => 'With a Name',
-        ));
+        /*$email->to(array(
+            '785556851@qq.com',
+            'm15023154369@163.com' => 'With a Name',
+        ));*/
         // And set the body.
-        $email->body('This is my message');
+        $email->body('这是测试邮箱，');
         try
         {
+            // Change the priority
+            $email->priority(Email\Email::P_HIGH);
+
+// And send it
+            $result = $email->send();
             $email->send();
         }
         catch(\EmailValidationFailedException $e)

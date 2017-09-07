@@ -117,14 +117,22 @@ return array(
 		/**
 		 * SMTP settings
 		 */
-		'smtp' => array(
-			'host'     => '',
-			'port'     => 25,
-			'username' => '',
-			'password' => '',
-			'timeout'  => 5,
-			'starttls' => false,
-		),
+//		'smtp' => array(
+//			'host'     => '',
+//			'port'     => 25,
+//			'username' => '',
+//			'password' => '',
+//			'timeout'  => 5,
+//			'starttls' => false,
+//		),
+        'smtp' => array(
+            'host'     => 'smtp.163.com',
+            'port'     => 25,
+            'username' => '15023154369@163.com',
+            'password' => 'happy1314',
+            'timeout'  => 5,
+            'starttls' => false,
+        ),
 
 		/**
 		 * Newline
