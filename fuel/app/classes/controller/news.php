@@ -14,6 +14,7 @@ use \Fuel\Core\Validation;
 use \Fuel\Core\DB;
 use \Fuel\Core\Session;
 use \Parser\View_Smarty; // 第三方类库
+use \Email\Email;
 
 class Controller_News extends Controller
 {
@@ -164,14 +165,20 @@ class Controller_News extends Controller
         return $val;
     }
 
+    public function action_sendEmail()
+    {
+
+    }
+
     public function action_test()
     {
-        if (Input::method() === 'POST') {
-
-        }
-//        print_r(Input::file());exit;
-        print_r($_FILES);exit;
-//        return View_Smarty::forge('news/test');
+        $email = Email::forge();
+        $email->from('3074053670@qq.com', '初音');
+        $email->to('mybsdc@qq.com', '罗叔叔');
+        $email->subject('致亲爱的罗叔叔');
+        $email->body('这只是一封测试邮件而已。');
+        $email->alt_body('这是什么');
+        $email->send();
     }
 
     public function action_testEmail(){

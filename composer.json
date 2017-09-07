@@ -15,7 +15,9 @@
         "fuel/parser": "1.8.*",
         "fuelphp/upload": "2.0.6",
         "smarty/smarty" : "*",
-        "kartik-v/bootstrap-fileinput": "@dev"
+        "kartik-v/bootstrap-fileinput": "@dev",
+        "phpmailer/phpmailer": "^6.0",
+        "mailgun/mailgun-php": "^2.3"
     },
     "require-dev": {
         "fuel/docs": "1.8.*"

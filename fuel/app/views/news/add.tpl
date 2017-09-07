@@ -26,14 +26,11 @@
             </select>
         </div>
     </form>
-    <form action="test" class="dropzone" enctype="multipart/form-data" method="post">
+    {*<form action="test" class="dropzone" enctype="multipart/form-data" method="post">
         <div class="fallback">
             <input name="file" type="file" multiple />
         </div>
-        {*<input type="file" multiple name="fuck" />*}
-        {*<button type="submit" class="btn btn-warning">测试图片上传</button>*}
-        <input type="submit" value="传图" />
-    </form>
+    </form>*}
     <a class="btn btn-default" href="index?page={if isset($smarty.get.page)}{$smarty.get.page}{else}1{/if}&kw={if isset($smarty.get.kw)}{$smarty.get.kw}{/if}">返回</a>
     <button class="btn btn-success pull-right" id="addPost">提交</button>
 {/block}
