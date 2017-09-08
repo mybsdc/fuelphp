@@ -15,6 +15,7 @@ use \Fuel\Core\DB;
 use \Fuel\Core\Session;
 use \Parser\View_Smarty; // 第三方类库
 use \Email\Email;
+use \Fuel\Core\Package; // test load
 
 class Controller_News extends Controller
 {
@@ -184,7 +185,7 @@ class Controller_News extends Controller
             } catch (\AttachmentNotFoundException $e) {
                 $result = [
                     'code' => -1,
-                    'msg' => '发送失败，存在文件缺失情况，估计是百度编辑器的锅'
+                    'msg' => '无法发送包含base64编码图片的邮件，正在着手解决'
                 ];
                 return json_encode($result);
             }
@@ -219,6 +220,14 @@ class Controller_News extends Controller
 
     public function action_test()
     {
-
+        return View_Smarty::forge('news/test');
+    }
+    public function action_test1()
+    {
+//        return View_Smarty::forge('news/test');
+//        return json_encode('success');
+        echo '<pre>';
+        print_r($_POST);exit;
+//        print_r($_FILES);exit;
     }
 }
