@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname(dirname($vendorDir));
 
 return array(
+    'PHPExcel' => array($vendorDir . '/phpoffice/phpexcel/Classes'),
     'Michelf' => array($vendorDir . '/michelf/php-markdown'),
     'Mailgun' => array($vendorDir . '/mailgun/mailgun-php/src'),
 );

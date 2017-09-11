@@ -4,10 +4,9 @@
     {Asset::css('fileinput/fileinput.min.css')}
 {/block}
 {block name="main"}
-    <form action="test" method="post" enctype="multipart/form-data">
+    <form enctype="multipart/form-data">
         <div class="form-group">
-            <label>Preview File Icon</label>
-            <input id="fileTest" type="file" multiple>
+            <input id="img-up" type="file" name="images" multiple>
         </div>
     </form>
 {/block}
@@ -19,7 +18,7 @@
     {Asset::js('news/fileinput/zh.js')}
     <script>
         {literal}
-        $('#fileTest').fileinput({
+        $('#img-up').fileinput({
             language: 'zh', // 语言
             uploadUrl: 'test1', // 上传地址
             allowedFileExtensions: ['jpg', 'png', 'gif', 'jpeg'], // 允许的后缀
@@ -46,9 +45,8 @@
             */
             deleteExtraData: {id: 2}, // 删除时post到后台的数据，同ajax提交
             deleteUrl: 'test1', // 通过AJAX POST响应删除预览中图像或内容的URL地址。它会被initialPreviewConfig['url']属性覆盖
-            maxFileSize: 1000,
-            maxFilesNum: 10
-
+            maxFileSize: 4000, // 每张图最大尺寸，以kb为单位
+            maxFilesNum: 10 // 最大图片数量
         });
         {/literal}
     </script>

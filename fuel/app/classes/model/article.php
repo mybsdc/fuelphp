@@ -95,28 +95,39 @@ class Article extends Model_Crud
         $pagination = Pagination::forge('page', $config);
 
         // 有无搜索条件结果不一样
+        $data['allArticle'] = DB::select('*')
+            ->from('fuel_article');
         if ($kw !== '') {
-            $data['allArticle'] = DB::select('*')
-                ->from('fuel_article')
-                ->where('title', 'like', "%$kw%")
-                ->order_by('id', 'DESC')
-                ->limit($pagination->per_page)
-                ->offset($pagination->offset)
-                ->execute()
-                ->as_array();
-        } else {
-            $data['allArticle'] = DB::select('*')
-                ->from('fuel_article')
-                ->order_by('id', 'DESC')
-                ->limit($pagination->per_page)
-                ->offset($pagination->offset)
-                ->execute()
-                ->as_array();
+            $data['allArticle'] = $data['allArticle']->where('title', 'like', "%$kw%");
         }
+        $data['allArticle'] = $data['allArticle']
+            ->order_by('id', 'DESC')
+            ->limit($pagination->per_page)
+            ->offset($pagination->offset)
+            ->execute()
+            ->as_array();
 
         // 生成分页
         $data['pagination'] = $pagination->pages_render();
 
         return $data;
+    }
+
+    /**
+     * 取出某一页数据
+     * @param int $offset
+     * @param int $limit
+     * @return null|object
+     */
+    public static function get_news_by_page($page = 0, $limit = 3)
+    {
+        // return Article::find_all($limit, ($page - 1) * $limit);
+        return DB::select('*')
+            ->from('fuel_article')
+            ->order_by('id', 'DESC')
+            ->limit($limit)
+            ->offset(($page - 1) * $limit)
+            ->execute()
+            ->as_array();
     }
 }

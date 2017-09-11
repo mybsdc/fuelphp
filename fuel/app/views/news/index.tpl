@@ -43,6 +43,7 @@
     </div>
     {\Fuel\Core\Pagination::instance('page')->render()}
     <a class="btn btn-success" href="/news/public/news/add?page={$isPage}&kw={if isset($smarty.get.kw)}{$smarty.get.kw}{/if}">添加文章</a>
+    <a class="btn btn-warning" href="/news/public/news/toExcel?page={$isPage}">导出Excel</a>
     <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="tips-w">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">

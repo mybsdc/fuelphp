@@ -6,4 +6,5 @@
     {$htmlData['content']}
     <hr />
     邮件是系统自动发送，请勿回复。
+
 {/block}

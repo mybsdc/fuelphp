@@ -5,6 +5,7 @@
  * @time 16:58
  */
 
+use App\Services\OSS;
 use \Model\Article;
 use \Fuel\Core\View;
 use \Fuel\Core\Input;
@@ -16,9 +17,81 @@ use \Fuel\Core\Session;
 use \Parser\View_Smarty; // 第三方类库
 use \Email\Email;
 use \Fuel\Core\Package; // test load
+use PHPMailer\PHPMailer\PHPMailer;
 
 class Controller_News extends Controller
 {
+
+
+    public function action_t()
+    {
+        echo '<pre>';
+        $t =
+            print_r($t);
+    }
+
+    public function action_toExcel()
+    {
+        $obj_excel = new \PHPExcel();
+        // $result = Article::get_all_news();
+        $result = Article::get_news_by_page((int)Input::get('page'));
+        $obj_excel->getActiveSheet()->setCellValue('A1', '序号', true);
+        $obj_excel->getActiveSheet()->setCellValue('B1', '标题', true);
+        $obj_excel->getActiveSheet()->setCellValue('C1', '发布时间', true);
+        $obj_excel->getActiveSheet()->setCellValue('D1', '更新时间', true);
+        $obj_excel->getActiveSheet()->getStyle('A1:D1')->getFont()->setSize(12)->setBold(true)->setName('微软雅黑');
+        $obj_excel->getActiveSheet()->getStyle('A1:D1')->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID);
+        $obj_excel->getActiveSheet()->getStyle('A1:D1')->getFill()->getStartColor()->setRGB('17A3FF');
+        $obj_excel->getActiveSheet()->getStyle('A1:D1')->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $obj_excel->getActiveSheet()->getStyle('A1:D1')->getFont()->getColor()->setARGB(\PHPExcel_Style_Color::COLOR_WHITE);
+        foreach ($result as $k => $v) {
+            $num = $k + 2;
+            $obj_excel->getActiveSheet()->setCellValue('A' . $num, $k + 1)->getColumnDimension('A')->setWidth(6);
+            $obj_excel->getActiveSheet()->setCellValue('B' . $num, $v['title'])->getColumnDimension('B')->setWidth(30);
+            $obj_excel->getActiveSheet()->setCellValue('C' . $num, date('Y-m-d H:i:s', $v['creat_time']))->getColumnDimension('C')->setWidth(20);
+            $obj_excel->getActiveSheet()->setCellValue('D' . $num, date('Y-m-d H:i:s', $v['update_time']))->getColumnDimension('D')->setWidth(20);
+        }
+        $file_name = date('Y-m-d-H-i-s', time()) . '_新闻数据导出.xlsx';
+        $obj_excel->getActiveSheet()->setTitle('新闻头条');
+        $obj_writer = \PHPExcel_IOFactory::createWriter($obj_excel, 'Excel2007');
+        header('Content-Type: application/vnd.ms-excel; charset=utf-8');
+        header('Content-Disposition: attachment;filename=' . $file_name);
+        header('Cache-Control: max-age=0');
+        $obj_writer->save('php://output');
+    }
+
+    public function action_toEmail()
+    {
+        $mail = new PHPMailer;
+        $mail->isSMTP();
+        $mail->Host = 'smtp.qq.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = '3074053670@qq.com';
+        $mail->Password = 'junxmcaubfjedheh';
+        $mail->SMTPSecure = 'ssl';
+        $mail->Port = 465;
+
+        $mail->setFrom('3074053670@qq.com', 'feifei');
+        $mail->addAddress('593198779@qq.com', 'luoshushu');
+        $mail->addReplyTo('view@qq.com', '访客');
+
+        /*$mail->addAttachment('/var/tmp/file.tar.gz');
+        $mail->addAttachment('/tmp/image.jpg', 'new.jpg');*/
+        $mail->isHTML(true);
+
+        $mail->Subject = '我是主题';
+        $mail->Body = '我是内容';
+
+        $mail->setLanguage('zh_cn', '/optional/path/to/language/directory/');
+
+        if (!$mail->send()) {
+            echo '发送失败';
+            echo 'Mailer Error: ' . $mail->ErrorInfo;
+        } else {
+            echo '已发送';
+        }
+    }
+
     /**
      * 新闻列表
      * @return mixed
@@ -185,7 +258,7 @@ class Controller_News extends Controller
             } catch (\AttachmentNotFoundException $e) {
                 $result = [
                     'code' => -1,
-                    'msg' => '无法发送包含base64编码图片的邮件，正在着手解决'
+                    'msg' => '图片地址不正确'
                 ];
                 return json_encode($result);
             }
@@ -198,19 +271,54 @@ class Controller_News extends Controller
                     'code' => 200,
                     'msg' => '成功向' . $toEmail . '发送了一封邮件'
                 ];
-            } catch(\EmailValidationFailedException $e) {
+            } catch (\EmailValidationFailedException $e) {
                 // The validation failed
                 $result = [
                     'code' => -1,
                     'msg' => '验证不通过，请检查配置'
                 ];
-            } catch(\EmailSendingFailedException $e) {
+            } catch (\EmailSendingFailedException $e) {
                 // The driver could not send the email
                 $result = [
                     'code' => -1,
                     'msg' => '邮件驱动存在问题'
                 ];
             }
+            /*
+            $mail = new PHPMailer;
+            $mail->isSMTP();
+            $mail->Host = 'smtp.qq.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = '3074053670@qq.com';
+            $mail->Password = 'junxmcaubfjedheh';
+            $mail->SMTPSecure = 'ssl';
+            $mail->Port = 465;
+
+            $mail->setFrom('3074053670@qq.com', 'feifei');
+            $mail->addAddress('593198779@qq.com', 'luoshushu');
+            $mail->addReplyTo('view@qq.com', '访客');
+
+            $mail->addAttachment('/var/tmp/file.tar.gz');
+            $mail->addAttachment('/tmp/image.jpg', 'new.jpg');
+            $mail->isHTML(true);
+
+            $mail->Subject = $data['title'];
+            $mail->Body = View_Smarty::forge('email/template', $html);
+
+            $mail->setLanguage('zh_cn', '/optional/path/to/language/directory/');
+
+            if (!$mail->send()) {
+                $result = [
+                    'code' => 200,
+                    'msg' => '失败，原因是' . $mail->ErrorInfo
+                ];
+            } else {
+                $result = [
+                    'code' => 200,
+                    'msg' => '成功向' . $toEmail . '发送了一封邮件'
+                ];
+            }
+            */
 
             return json_encode($result);
         } else {
@@ -222,12 +330,13 @@ class Controller_News extends Controller
     {
         return View_Smarty::forge('news/test');
     }
+
     public function action_test1()
     {
 //        return View_Smarty::forge('news/test');
 //        return json_encode('success');
         echo '<pre>';
-        print_r($_POST);exit;
-//        print_r($_FILES);exit;
+        print_r($_FILES);
+        exit;
     }
 }
