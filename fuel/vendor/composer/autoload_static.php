@@ -10,6 +10,7 @@ class ComposerStaticInit1062df75762004a29d79f45ecac9e533
         'ddc0a4d7e61c0286f0f8593b1903e894' => __DIR__ . '/..' . '/clue/stream-filter/src/functions.php',
         '8cff32064859f4559445b89279f3199c' => __DIR__ . '/..' . '/php-http/message/src/filters.php',
         'f084d01b0a599f67676cffef638aa95b' => __DIR__ . '/..' . '/smarty/smarty/libs/bootstrap.php',
+        '4378f255c67b62a024d3295602369ebf' => __DIR__ . '/..' . '/johnlui/aliyun-oss/src/AliyunOSS.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -132,6 +133,13 @@ class ComposerStaticInit1062df75762004a29d79f45ecac9e533
     );
 
     public static $prefixesPsr0 = array (
+        'P' => 
+        array (
+            'PHPExcel' => 
+            array (
+                0 => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes',
+            ),
+        ),
         'M' => 
         array (
             'Michelf' => 
