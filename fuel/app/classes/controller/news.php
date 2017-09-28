@@ -14,6 +14,7 @@ use \Fuel\Core\Controller;
 use \Fuel\Core\Validation;
 use \Fuel\Core\DB;
 use \Fuel\Core\Session;
+use \Fuel\Core\Upload;
 use \Parser\View_Smarty; // 第三方类库
 use \Email\Email;
 use \Fuel\Core\Package; // test load
@@ -333,10 +334,24 @@ class Controller_News extends Controller
 
     public function action_test1()
     {
-//        return View_Smarty::forge('news/test');
-//        return json_encode('success');
+        $config = [
+            'path' => DOCROOT . 'uploads', // DOCROOT => public目录
+            // 'randomize' => false, // 随机md5字符串命名
+            'ext_whitelist' => ['img', 'jpg', 'jpeg', 'gif', 'png'],
+            'max_size' => 6000,
+            'prefix' => 'news_'
+        ];
+
+        Upload::process($config);
+
+        if (Upload::is_valid()) { // 如果有值
+            Upload::save();
+            Article::upload_images_db(13, Upload::get_files());
+//            print_r(Upload::get_files());
+            exit;
+        }
         echo '<pre>';
-        print_r($_FILES);
+        print_r('fuck');
         exit;
     }
 }

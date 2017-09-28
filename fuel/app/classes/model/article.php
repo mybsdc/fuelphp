@@ -130,4 +130,23 @@ class Article extends Model_Crud
             ->execute()
             ->as_array();
     }
+
+    public static function upload_images_db($a_id = 1, $filesInfo = [])
+    {
+        $newImgData = [];
+        $newsObj = Article::find_by_pk($a_id);
+        $orgImgData = is_array(json_decode($newsObj->img, true)) ? json_decode($newsObj->img, true) : []; // db原始数据
+
+        foreach ($filesInfo as $k => $v) {
+            $newImgData[$k]['name'] = $v['basename'];
+            $newImgData[$k]['url'] = $v['saved_to'] . $v['saved_as'];
+        }
+
+        $imgData = json_encode(array_merge($orgImgData, $newImgData));
+        print_r($imgData);exit;
+        $newsObj->set([
+            'img' => $imgData,
+            'update_time' => time()
+        ]);
+    }
 }

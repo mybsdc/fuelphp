@@ -8,6 +8,7 @@
         <div class="form-group">
             <input id="img-up" type="file" name="images" multiple>
         </div>
+        <input type="hidden" value="13" name="id" />
     </form>
 {/block}
 {block name="js"}

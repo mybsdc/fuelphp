@@ -41,7 +41,7 @@ return array(
 	 *
 	 * Set this to 'index.php if you don't use URL rewriting
 	 */
-	// 'index_file' => false,
+	// 'index_file' => false, 这个项可以决定是否隐藏index.php
 
 	// 'profiling'  => false,
 
@@ -84,7 +84,7 @@ return array(
 	/**
 	 * Internal string encoding charset
 	 */
-	// 'encoding'  => 'UTF-8',
+	// 'encoding'  => 'UTF-8', 打开这个项默认启用UTF-8编码
 
 	/**
 	 * DateTime settings
